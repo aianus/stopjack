@@ -1,0 +1,26 @@
+{
+  "name": "stopjack",
+  "version": "0.0.1",
+  "description": "Stop SIM jacking: full control over your calls and SMS",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "twilio-run --env"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/aianus/stopjack.git"
+  },
+  "author": "aianus",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aianus/stopjack/issues"
+  },
+  "homepage": "https://github.com/aianus/stopjack#readme",
+  "devDependencies": {
+    "twilio-run": "2.* || >2.0.0-rc"
+  },
+  "engines": {
+    "node": "8.10.0"
+  }
+}
