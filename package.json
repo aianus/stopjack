@@ -17,9 +17,6 @@
     "url": "https://github.com/aianus/stopjack/issues"
   },
   "homepage": "https://github.com/aianus/stopjack#readme",
-  "devDependencies": {
-    "twilio-run": ">=5.0.0 <6.0.0"
-  },
   "engines": {
     "node": ">=22.0.0 <23.0.0"
   },
