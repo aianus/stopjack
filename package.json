@@ -17,13 +17,13 @@
     "url": "https://github.com/aianus/stopjack/issues"
   },
   "homepage": "https://github.com/aianus/stopjack#readme",
-  "dependencies": {
-    "@sendgrid/mail": "^6.4.0"
-  },
   "devDependencies": {
-    "twilio-run": "2.* || >2.0.0-rc"
+    "twilio-run": ">=5.0.0 <6.0.0"
   },
   "engines": {
-    "node": "8.10.0"
+    "node": ">=22.0.0 <23.0.0"
+  },
+  "dependencies": {
+    "@aws-sdk/client-ses": "^3.958.0"
   }
 }

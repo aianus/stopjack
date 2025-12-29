@@ -1,4 +1,4 @@
-const sgMail = require('@sendgrid/mail');
+const { SESClient, SendEmailCommand } = require("@aws-sdk/client-ses");
 
 function forwardSMSviaSMSTwiml(context, event) {
   let twiml = new Twilio.twiml.MessagingResponse();
@@ -9,24 +9,44 @@ function forwardSMSviaSMSTwiml(context, event) {
 }
 
 function forwardSMSviaEmail(context, event) {
-  sgMail.setApiKey(context.SENDGRID_API_KEY);
-  const msg = {
-    to: context.SMS_FORWARDING_TO_EMAIL,
-    from: context.SMS_FORWARDING_FROM_EMAIL,
-    subject: `New SMS message from: ${event.From}`,
-    text: event.Body
-  };
-  return sgMail.send(msg);
+  const client = new SESClient({
+    region: context.AWS_REGION || 'us-east-1',
+    credentials: {
+      accessKeyId: context.AWS_ACCESS_KEY_ID,
+      secretAccessKey: context.AWS_SECRET_ACCESS_KEY
+    }
+  });
+
+  const command = new SendEmailCommand({
+    Destination: {
+      ToAddresses: [context.SMS_FORWARDING_TO_EMAIL],
+    },
+    Message: {
+      Body: {
+        Text: {
+          Data: event.Body,
+        },
+      },
+      Subject: {
+        Data: `New SMS message from: ${event.From}`,
+      },
+    },
+    Source: context.SMS_FORWARDING_FROM_EMAIL,
+  });
+
+  return client.send(command);
 }
 
-exports.handler = function(context, event, callback) {
-  let twiml = forwardSMSviaSMSTwiml(context, event);
+exports.handler = function (context, event, callback) {
+  // let twiml = forwardSMSviaSMSTwiml(context, event);
+  let twiml = null
 
   forwardSMSviaEmail(context, event)
-    .then(function() {
+    .then(function () {
       callback(null, twiml);
     })
-    .catch(function(err) {
+    .catch(function (err) {
+      console.error(err);
       callback(err);
-    })
+    });
 };
