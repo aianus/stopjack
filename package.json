@@ -21,6 +21,6 @@
     "node": ">=22.0.0 <23.0.0"
   },
   "dependencies": {
-    "@aws-sdk/client-ses": "^3.958.0"
+    "@aws-sdk/client-ses": "^3.995.0"
   }
 }
